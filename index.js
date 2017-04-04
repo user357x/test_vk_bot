@@ -10,9 +10,11 @@ const getDate = require('./getDate');
 vk.init_longpoll();
 
 let message_id;
+let last_from_id;
 
 vk.on("message", function (event, msg) {
-	if(msg.id === message_id + 1) return;
+	if(msg.id === message_id + 1 && last_from_id === msg.from_id) return;
 	message_id = msg.id;
+	last_from_id = msg.from_id;
     msg.send(getDate());
 });

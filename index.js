@@ -13,9 +13,9 @@ vk("messages.getLongPollServer", {
 }).then(function next(data) {
     if (!data.server) throw data;
     vk.on("LongPollRequest", data);
-    return request.get("https://" + data.server + "?act=a_check&key=" + data.key + "&ts=" + data.ts + "&wait=25&mode=128")
+    return request.get("https://" + data.server + "?act=a_check&key=" + data.key + "&ts=" + data.ts + "&wait=25&mode=2")
         .then(res => tryJSON(res.text))
-        .then(function(body) {
+        .then(body => {
             vk.on("LongPollResponse", body);
             if (body.error || body.failed){
                 throw body;
@@ -32,9 +32,4 @@ vk("messages.getLongPollServer", {
     vk.on("LongPollError",e);
 });
 
-vk.on("message", (event, msg) => {
-    vk.messages.send({
-        peer_id: msg.peer_id,
-        message: getDate()
-    });
-});
+vk.on("message", (event, msg) => msg.send(getDate()));

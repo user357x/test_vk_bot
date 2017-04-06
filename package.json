@@ -8,7 +8,8 @@
   },
 
   "dependencies": {
-    "VK-Promise": "0.1.8"
+    "VK-Promise": "0.1.8",
+    "superagent": "latest"
   },
 
   "author": "vasily",
